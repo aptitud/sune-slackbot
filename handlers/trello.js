@@ -8,7 +8,7 @@ const shorten = value => {
 }
 
 module.exports = tiny => {
-  tiny.listen(/trello(.*)/i, (send, match) => {
+  tiny.listen(/trello (.+)/i, (send, match) => {
     trelloApi.get("/1/search", { query: match[1].trim() }, function(err, data) {
       send(`Hittade ${data.cards.length} kort som innehåller *${match[1]}*`)
       data.cards.map(card => {
