@@ -3,7 +3,7 @@ const Tiny = require('./tiny')
 const WebSocketClient = require('websocket').client
 
 const start = async (url, logger) => {
-  const slackOrganization = await rp(url).then(response => JSON.parse(response))
+  const slackOrganization = await rp(url).then(response => JSON.parse(response)).catch(err => {console.log(err)})
   const socket = new WebSocketClient()
   socket.on('connectFailed', error => logger('socket.connectFailed', error.toString()))
   socket.on('connect', connection => new Tiny(connection, slackOrganization, logger))

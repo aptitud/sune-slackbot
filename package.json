@@ -4,7 +4,9 @@
   "description": "Node.JS Slackbot",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "debug": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -13,9 +15,14 @@
   "author": "Mikael Ahlinder",
   "license": "MIT",
   "dependencies": {
+    "moment": "^2.18.1",
     "node-trello": "^1.1.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
+    "trello-node": "^0.1.0",
     "websocket": "^1.0.24"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
