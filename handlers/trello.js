@@ -13,9 +13,8 @@ const sendCard = (card, send) => {
     const formattedMessage = `
 ---------------------------------------
 *${shorten(card.name)}* i _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
-${shorten(card.desc) || "_ingen beskrivning_"}
+${shorten(card.desc) || "~ingen beskrivning~"}
 ${card.shortUrl}`
-
     send(formattedMessage)
   })
 }
