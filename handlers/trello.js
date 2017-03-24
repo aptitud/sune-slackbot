@@ -10,13 +10,18 @@ const shorten = value => {
 
 const sendCard = (card, send) => {
   const board = trelloApi.get("/1/boards/" + card.idBoard, (err, data) => {
-    data = data ||  {'name':'no board specified (?)'}
-    const formattedMessage = `
----------------------------------------
-*${shorten(card.name)}* i _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
-${shorten(card.desc) || "~ingen beskrivning~"}
-${card.shortUrl}`
-    send(formattedMessage)
+
+    data = data ||  {'name':'  board saknas (?)'}
+    if(!data.closed){
+      const formattedMessage = `
+          ---------------------------------------
+          *${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
+          ${shorten(card.desc) || "~ingen beskrivning~"}
+          ${card.shortUrl}`
+          console.log('not closed');
+          send(formattedMessage)
+    }
+    
   })
 }
 
@@ -25,15 +30,16 @@ module.exports = tiny => {
     const cards = trelloApi.get("/1/search", {
       query: match[1].trim(),
       cards_limit: 100,
-      card_fields: 'idBoard,shortUrl,name,desc,dateLastActivity'
+      card_fields: 'idBoard,shortUrl,name,desc,dateLastActivity,closed'
     }, (err, data) => {
-      const uniqueCards = data.cards.reduce((acc, val) => {
+      console.log(data.cards);
+      const uniqueCards = data.cards.filter(c => !c.closed).reduce((acc, val) => {
         return acc.indexOf(val) === -1
           ? acc.concat([val])
           : acc 
       }, [])
 
-      send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}*`)
+       send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}*`)
       uniqueCards.map(card => sendCard(card, send))
     })
   })
