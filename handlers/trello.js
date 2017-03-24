@@ -39,7 +39,7 @@ module.exports = tiny => {
           : acc 
       }, [])
 
-       send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}*`)
+       send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}* \n Visar öppna kort på öppna tavlor `)
       uniqueCards.map(card => sendCard(card, send))
     })
   })
