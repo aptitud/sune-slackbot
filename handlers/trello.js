@@ -10,6 +10,7 @@ const shorten = value => {
 
 const sendCard = (card, send) => {
   const board = trelloApi.get("/1/boards/" + card.idBoard, (err, data) => {
+    data = data ||  {'name':'no board specified (?)'}
     const formattedMessage = `
 ---------------------------------------
 *${shorten(card.name)}* i _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
