@@ -1,1 +1,1 @@
-# sune-slackbot
+# tiny-slackbot

@@ -1,0 +1,20 @@
+{
+  "name": "tiny-slackbot",
+  "version": "1.0.0",
+  "description": "Node.JS Slackbot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikaelahlinder/tiny-slackbot.git"
+  },
+  "author": "Mikael Ahlinder",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
+    "websocket": "^1.0.24"
+  }
+}
