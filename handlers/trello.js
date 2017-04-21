@@ -27,6 +27,7 @@ const sendCard = (card, send) => {
 
 module.exports = tiny => {
   tiny.listen(/trello (.+)/i, (send, match) => {
+    console.log(`Söker i trello efter ${match[1].trim()}`);
     const cards = trelloApi.get("/1/search", {
       query: match[1].trim(),
       cards_limit: 100,

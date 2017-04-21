@@ -10,5 +10,5 @@ const start = async (url, logger) => {
   socket.connect(slackOrganization.url)
 }
 
-const logger = (message, extra) => console.log(message || 'unknown', extra)
-start(`https://slack.com/api/rtm.start?token=${process.env.SLACK_TOKEN}`, logger)
+const logger = (message, extra) => console.log(message || 'unknown', extra);
+start(`https://slack.com/api/rtm.start?token=${process.env.SLACK_TOKEN}`, logger);
