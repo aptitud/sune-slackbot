@@ -20,8 +20,10 @@ const sendCard = (card, send) => {
           ${card.shortUrl}`
           console.log('not closed');
           send(formattedMessage)
+    } else {
+      console.log(`not showing closed card ${data.name} ${data.shortUrl}`);
     }
-    
+
   })
 }
 
@@ -37,10 +39,31 @@ module.exports = tiny => {
       const uniqueCards = data.cards.filter(c => !c.closed).reduce((acc, val) => {
         return acc.indexOf(val) === -1
           ? acc.concat([val])
-          : acc 
-      }, [])
+          : acc
+      }, []);
 
        send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}* \n Visar öppna kort på öppna tavlor `)
+      uniqueCards.map(card => sendCard(card, send))
+    })
+  })
+}
+
+module.exports = tiny => {
+  tiny.listen(/trelloboard (.+)/i, (send, match) => {
+    console.log(`Söker i trello efter ${match[1].trim()}`);
+    const cards = trelloApi.get("/1/search", {
+      query: match[1].trim(),
+      cards_limit: 100,
+      card_fields: 'idBoard,shortUrl,name,desc,dateLastActivity,closed'
+    }, (err, data) => {
+      console.log(data.boards);
+      const uniqueCards = data.boards.filter(b => !b.closed).reduce((acc, val) => {
+        return acc.indexOf(val) === -1
+          ? acc.concat([val])
+          : acc
+      }, []);
+
+       send(`Hittade *${uniqueCards.length}* tavlor som innehåller *${match[1]}* \n Visar öppna tavlor `)
       uniqueCards.map(card => sendCard(card, send))
     })
   })
