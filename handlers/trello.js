@@ -12,16 +12,15 @@ const sendCard = (card, send) => {
   const board = trelloApi.get("/1/boards/" + card.idBoard, (err, data) => {
 
     data = data ||  {'name':'  board saknas (?)'}
-    if(!data.closed){
+    if (!data.closed) {
       const formattedMessage = `
           ---------------------------------------
           *${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
           ${shorten(card.desc) || "~ingen beskrivning~"}
           ${card.shortUrl}`
-          console.log('not closed');
-          send(formattedMessage)
+
+          send(formattedMessage.replace(/^ +/gm, ''))
     }
-    
   })
 }
 
@@ -40,7 +39,7 @@ module.exports = tiny => {
           : acc 
       }, [])
 
-       send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}* \n Visar öppna kort på öppna tavlor `)
+      send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}* \n Visar öppna kort på öppna tavlor `)
       uniqueCards.map(card => sendCard(card, send))
     })
   })
