@@ -5,7 +5,7 @@ const trelloApi = new Trello(process.env.TRELLO_APP_ID, process.env.TRELLO_APP_T
 const shorten = value => {
   const maxLength = 50
   const trimmedText = value.length > maxLength ? value.substring(0, maxLength) + "..." : value
-  return trimmedText.replace('\\n', '').replace('\r', '')
+  return trimmedText.replace(/\n/g, '')
 }
 
 const sendCard = (card, send) => {
@@ -14,12 +14,12 @@ const sendCard = (card, send) => {
     data = data ||  {'name':'  board saknas (?)'}
     if (!data.closed) {
       const formattedMessage = `
-          *${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
-          ${shorten(card.desc) || "~ingen beskrivning~"}
-          ${card.shortUrl}`
+          >*${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
+          >${shorten(card.desc) || "~ingen beskrivning~"}
+          >${card.shortUrl}`
 
-          send('---------------------------------------')
-          send(formattedMessage.replace(/^ +/gm, '').replace(/\n/gm, '>n'))
+          send('\n')
+          send(formattedMessage.replace(/^ +/gm, ''))
     }
   })
 }
