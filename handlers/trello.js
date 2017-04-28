@@ -15,9 +15,9 @@ const sendCard = (card, send) => {
     if (!data.closed) {
       const formattedMessage = `
           ---------------------------------------
-          *${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
-          ${shorten(card.desc) || "~ingen beskrivning~"}
-          ${card.shortUrl}`
+          >*${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
+          >${shorten(card.desc) || "~ingen beskrivning~"}
+          >${card.shortUrl}`
 
           send(formattedMessage.replace(/^ +/gm, ''))
     }
