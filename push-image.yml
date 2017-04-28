@@ -1,0 +1,24 @@
+jobs:
+- name: publish-sune
+  public: true
+  serial: true
+  plan:
+  - get: sune-slackbot
+  - put: sune-slackbot-docker-image
+    params:
+      build: sune-slackbot
+
+resources:
+- name: sune-slackbot
+  type: git
+  source:
+    uri: git@github.com:aptitud/sune-slackbot.git
+    private_key: {{git-repo-key}}
+
+- name: sune-slackbot-docker-image
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-image}}
