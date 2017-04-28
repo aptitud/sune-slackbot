@@ -14,12 +14,12 @@ const sendCard = (card, send) => {
     data = data ||  {'name':'  board saknas (?)'}
     if (!data.closed) {
       const formattedMessage = `
-          ---------------------------------------
-          >*${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
-          >${shorten(card.desc) || "~ingen beskrivning~"}
-          >${card.shortUrl}`
+          *${shorten(card.name)}* på _ ${data.name}_ (${moment(card.dateLastActivity).format('LL')})
+          ${shorten(card.desc) || "~ingen beskrivning~"}
+          ${card.shortUrl}`
 
-          send(formattedMessage.replace(/^ +/gm, ''))
+          send('---------------------------------------')
+          send(formattedMessage.replace(/^ +/gm, '').replace(/\n/gm, '>n'))
     }
   })
 }
