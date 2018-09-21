@@ -46,23 +46,4 @@ module.exports = tiny => {
       uniqueCards.map(card => sendCard(card, send))
     })
   });
-  
-  tiny.listen(/netlify (.+)/i, (send, match) => {
-    if(match[1] === 'deploy') {
-      const options = { 
-        hostname: 'api.netlify.com',
-        path: process.env.NETLIFY_HOOK,
-        method: 'POST'
-      };
-      const req =  https.request(options, (res) => {
-        send(`Deployar om aptitud.se. Varsågod (klart om några sekunder) `)
-      });
-
-      req.on('error', (e)  => {
-        send(`Det där gick inte så bra.... ${e}`);
-      }); 
-      req.end();
-
-    } 
-  })
 }
