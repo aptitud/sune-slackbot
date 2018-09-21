@@ -18,8 +18,8 @@ module.exports = class Tiny {
   loadModules(folder) {
     const path = require('path').join(__dirname, folder)
     require('fs').readdirSync(path).forEach(file => {
-      const module = require(`./${folder}/${file}`)
-      module(this)
+      const modulex = require(`./${folder}/${file}`)
+      modulex(this)
     })
   }
   send(message) {

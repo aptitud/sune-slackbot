@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
+    "dev": "nodemon app.js",
     "debug": "node app.js"
   },
   "repository": {
@@ -15,6 +16,7 @@
   "author": "Mikael Ahlinder",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "moment": "^2.18.1",
     "node-trello": "^1.1.2",
     "request": "^2.81.0",
@@ -23,8 +25,9 @@
     "websocket": "^1.0.24"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
-  },"engines": {
+    "nodemon": "^1.18.4"
+  },
+  "engines": {
     "node": "7.7.4"
   }
 }

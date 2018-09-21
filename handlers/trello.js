@@ -1,3 +1,5 @@
+//import { request } from "http";
+const https = require('https')
 const Trello = require("node-trello")
 const moment = require("moment")
 const trelloApi = new Trello(process.env.TRELLO_APP_ID, process.env.TRELLO_APP_TOKEN)
@@ -43,5 +45,24 @@ module.exports = tiny => {
        send(`Hittade *${uniqueCards.length}* kort som innehåller *${match[1]}* \n Visar öppna kort på öppna tavlor `)
       uniqueCards.map(card => sendCard(card, send))
     })
+  });
+  
+  tiny.listen(/netlify (.+)/i, (send, match) => {
+    if(match[1] === 'deploy') {
+      const options = { 
+        hostname: 'api.netlify.com',
+        path: process.env.NETLIFY_HOOK,
+        method: 'POST'
+      };
+      const req =  https.request(options, (res) => {
+        send(`Deployar om aptitud.se. Varsågod (klart om några sekunder) `)
+      });
+
+      req.on('error', (e)  => {
+        send(`Det där gick inte så bra.... ${e}`);
+      }); 
+      req.end();
+
+    } 
   })
 }

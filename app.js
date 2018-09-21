@@ -1,6 +1,7 @@
 const rp = require('request-promise')
 const Tiny = require('./tiny')
 const WebSocketClient = require('websocket').client
+require('dotenv').config()
 
 const start = async (url, logger) => {
   const slackOrganization = await rp(url).then(response => JSON.parse(response)).catch(err => {console.log(err)})
