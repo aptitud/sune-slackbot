@@ -3,7 +3,7 @@ const https = require('https')
 
 module.exports = tiny => {
   tiny.listen(/netlify (.+)/i, (send, match) => {
-    if(match[1] === 'deploy') {
+    if(match[1].trim() === 'deploy') {
       const options = { 
         hostname: 'api.netlify.com',
         path: process.env.NETLIFY_HOOK,
@@ -19,7 +19,7 @@ module.exports = tiny => {
       req.end();
     }
     else {
-      send(`${match[1]} vet jag inte vad jag ska göra med. Jag kan bara deploy`);
+      send(`[${match[1]}] vet jag inte vad jag ska göra med. Jag kan bara deploy`);
     } 
   })
 }
