@@ -2,7 +2,7 @@
 const https = require('https')
 
 module.exports = tiny => {
-  tiny.listen(/netlify (.+)/i, (send, match) => {
+  tiny.listen(/^netlify (.+)/i, (send, match) => {
     if(match[1].trim() === 'deploy') {
       const options = { 
         hostname: 'api.netlify.com',
