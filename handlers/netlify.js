@@ -14,7 +14,7 @@ module.exports = tiny => {
       });
 
       req.on('error', (e)  => {
-        send(`Det där gick inte så bra.... ${e}`);
+        send(`Det där gick inte så bra... ${e}`);
       }); 
       req.end();
     }
